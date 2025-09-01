@@ -25,14 +25,28 @@ while cap.isOpened():
     for i in boxes.cls:
         count += 1
     
+    # 조건문으로 상태 메시지 결정
+    if count >= 15:
+        status = "Danger"
+        color = (0, 0, 225)
+    elif count >= 10:
+        status = "Warning"
+        color = (0, 165, 255)
+    elif count >= 5:
+        status = "Nomal"
+        color = (225, 0, 0)
+    else:
+        status = "Safe"
+        color = (0, 225, 0)
+    
     # 화면에 탐지된 객체 수 표시
     cv2.putText(
         annotated_frame, # 표시 프레임
-        f"Detected : {count}", # 표시 내용
+        f"Detected : {count}, {status}", # 표시 내용
         (10, 30), # 좌측 상단 위치
         cv2.FONT_HERSHEY_SIMPLEX, # 폰트 스타일
         1, # 폰트 크기
-        (0, 0, 225), # 글자색
+        color, # 글자색
         2, # 두께
         cv2.LINE_AA # 안티앨리어싱 적용
     )
